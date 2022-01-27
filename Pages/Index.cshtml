@@ -1,0 +1,33 @@
+﻿    @page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+
+    Pages pages = new Pages();
+
+    int pageNo = 0;
+    if(ViewBag.Pages != null)
+    {
+        pages = ViewBag.Pages;
+        pageNo = pages.AtualPage;
+    }
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<div class=container>
+    @if(pages.TotalPages > 0)
+    {
+        <ul class "pagination justify-content-end">
+            @for (var pge = pages.StartPage; pge<= pages.EndPage; pge++)
+            {
+                <li class="page-item @(pge == pages.AtualPage ?  "active" : "")">
+                    <a class="page-link" asp-controller = "Produto" action="index" asp-route-pg="@pge" > @pge </a>
+                </li>
+            }
+
+        </ul>
+    }
+</div>
